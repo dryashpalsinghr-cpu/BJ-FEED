@@ -1,0 +1,3 @@
+export function cors(req:Request){const allowed=Deno.env.get('APP_ORIGIN')??''; const origin=req.headers.get('origin')??'';return {'Access-Control-Allow-Origin':origin===allowed?origin:allowed,'Access-Control-Allow-Headers':'authorization, x-client-info, apikey, content-type','Access-Control-Allow-Methods':'POST, OPTIONS','Vary':'Origin'};}
+export function reply(req:Request,data:unknown,status=200){return new Response(JSON.stringify(data),{status,headers:{...cors(req),'Content-Type':'application/json','Cache-Control':'no-store'}});}
+export function checkOrigin(req:Request){const origin=req.headers.get('origin');return !origin||origin===Deno.env.get('APP_ORIGIN')||origin==='https://localhost'||origin==='capacitor://localhost';}

@@ -1,0 +1,13 @@
+BALAJI ELECTRIC — ENGLISH SOURCE PACKAGE
+
+1. Extract this ZIP.
+2. Upload the contents of balaji-electric/ to your GitHub repository root.
+3. Read README.md before deploying.
+4. Try the sample workspace with VITE_DEMO_MODE=true.
+5. For real use, create Supabase, apply migrations, deploy Edge Functions,
+   create the first owner, and set frontend environment variables.
+6. Deploy the repository on Vercel or Netlify. GitHub upload alone is not hosting.
+
+This is not an APK or a live production-certified app.
+Live backend/full dependency build testing is still required.
+See docs/FEATURE-STATUS.md and docs/QA.md for exact boundaries.

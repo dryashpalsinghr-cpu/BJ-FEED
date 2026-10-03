@@ -1,0 +1,5 @@
+import Papa from 'papaparse';
+export const safeCell=(v:unknown)=>typeof v==='string'&&/^[=+@\-\t\r]/.test(v)?"'"+v:v;
+export function download(blob:Blob,name:string){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);}
+export function csv(rows:Record<string,unknown>[],name:string){const safe=rows.map(r=>Object.fromEntries(Object.entries(r).map(([k,v])=>[k,safeCell(v)])));download(new Blob(['\ufeff'+Papa.unparse(safe)],{type:'text/csv;charset=utf-8'}),name+'.csv');}
+export async function excel(tables:Record<string,Record<string,unknown>[]>,name:string){const XLSX=await import('xlsx');const wb=XLSX.utils.book_new();Object.entries(tables).forEach(([k,v])=>{const rows=v.map(r=>Object.fromEntries(Object.entries(r).map(([key,val])=>[key,safeCell(typeof val==='object'?JSON.stringify(val):val)])));XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),k.slice(0,31));});XLSX.writeFile(wb,name+'.xlsx');}
